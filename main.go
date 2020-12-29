@@ -119,7 +119,7 @@ func renderMetricsResponse() string {
 		"# TYPE lmp_subspaces_total gauge\n" +
 		"# HELP lmp_vessels_total The number of vessels.\n" +
 		"# TYPE lmp_vessels_total gauge\n" +
-		"# HELP lmp_subspaces_time The time of subspaces.\n" +
+		"# HELP lmp_subspaces_time The time of subspaces in seconds.\n" +
 		"# TYPE lmp_subspaces_time gauge\n" +
 		"# HELP lmp_vessels_distance_travelled The total distance travelled by a vessel.\n" +
 		"# TYPE lmp_vessels_distance_travelled counter\n" +
@@ -158,7 +158,7 @@ func renderMetricsResponse() string {
 			res += `lmp_subspaces_total{server="` + m.Server + `"} ` + strconv.FormatInt(int64(len(m.CurrentState.Subspaces)), 10) + "\n"
 
 			for _, s := range m.CurrentState.Subspaces {
-				res += `lmp_subspaces_time{server="` + m.Server + `",subspace="` + strconv.FormatInt(int64(s.Id), 10) + `"} ` + strconv.FormatFloat(s.Time, 'f', 6, 64) + "\n"
+				res += `lmp_subspaces_time{server="` + m.Server + `",subspace="` + strconv.FormatInt(int64(s.Id), 10) + `" creator="` + s.Creator + `"} ` + strconv.FormatFloat(s.Time, 'f', 6, 64) + "\n"
 			}
 
 			for _, v := range m.CurrentState.Vessels {
